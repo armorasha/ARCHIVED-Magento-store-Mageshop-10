@@ -10,14 +10,14 @@ class Pencil implements PencilInterface
 {
     protected $color;
     protected $size;
-    // protected $name;
+    protected $name;
     // protected $school;
     // public function __construct(Color $color, Size $size, $name = null, $school = null)
-    public function __construct(Color $color, Size $size)
+    public function __construct(Color $color, Size $size, $name = null)
     {
         $this->color = $color;
         $this->size = $size;
-        // $this->name = $name;
+        $this->name = $name;
         // $this->school = $school;
     }
 
