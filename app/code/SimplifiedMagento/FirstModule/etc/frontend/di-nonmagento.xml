@@ -1,0 +1,11 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsii="http://symfony.com/schema/dic/services"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="SimplifiedMagento\FirstModule\NotMagento\PencilInterface"
+                type="SimplifiedMagento\FirstModule\NotMagento\RedPencil"
+                />
+     <preference for="Magento\Catalog\Api\ProductRepositoryInterface"
+                type="SimplifiedMagento\FirstModule\Model\CustomImplementation"
+                />               
+    
+</config>

@@ -1,11 +1,28 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsii="http://symfony.com/schema/dic/services"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="SimplifiedMagento\FirstModule\NotMagento\PencilInterface"
-                type="SimplifiedMagento\FirstModule\NotMagento\RedPencil"
+<preference for="SimplifiedMagento\FirstModule\Api\PencilInterface"
+                type="SimplifiedMagento\FirstModule\Model\Pencil"
                 />
-     <preference for="Magento\Catalog\Api\ProductRepositoryInterface"
-                type="SimplifiedMagento\FirstModule\Model\CustomImplementation"
-                />               
-    
+
+<!-- Defaults: Yellow and Normal size as default -->
+<preference for="SimplifiedMagento\FirstModule\Api\Color"
+                type="SimplifiedMagento\FirstModule\Model\Yellow"
+                />
+<preference for="SimplifiedMagento\FirstModule\Api\Size"
+                type="SimplifiedMagento\FirstModule\Model\Normal"
+                />
+
+
+<!-- Custom: To keep above defaults as defaults and temporarily change the  color and size, leave the above code and add the below code -->
+<type name="SimplifiedMagento\FirstModule\Model\Pencil">
+    <arguments>
+        <argument name="color" xsi:type="object">SimplifiedMagento\FirstModule\Model\Red</argument>
+    </arguments>
+    <arguments>
+        <argument name="size" xsi:type="object">SimplifiedMagento\FirstModule\Model\Big</argument>
+    </arguments>
+</type>
+
+
 </config>

@@ -2,22 +2,20 @@
 
 namespace SimplifiedMagento\FirstModule\Controller\Page;
 
-use Magento\Framework\Api\ObjectFactory;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
-use Magento\Setup\Module\Dependency\Report\FrameworkTest;
-use Magento\TestFramework\Event\Magento;
-use SimplifiedMagento\FirstModule\Api\PencilInterface;
-
-use function PHPSTORM_META\type;
+use SimplifiedMagento\FirstModule\NotMagento\PencilInterface;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 
 class HelloWorld extends \Magento\Framework\App\Action\Action
 {
     protected $pencilInterface;
+    protected $productRepository;
 
-    public function __construct(Context $context, PencilInterface $pencilInterface)
+    public function __construct(Context $context, PencilInterface $pencilInterface, ProductRepositoryInterface $productRepository)
     {
         $this->pencilInterface = $pencilInterface;
+        $this->productRepository = $productRepository;
         parent::__construct($context);
     }
 
@@ -33,11 +31,8 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
+        // echo "Main function" . "</br>";
         echo $this->pencilInterface->getPencilType() . "<br>";
-
-        // using object manager to create objects on the fly to test how book object gets default size and colour from di.xml
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $book = $objectManager->create('SimplifiedMagento\FirstModule\Model\Book');
-        var_dump($book);
+        echo get_class($this->productRepository);
     }
 }
