@@ -4,7 +4,8 @@
     <preference for="SimplifiedMagento\FirstModule\NotMagento\PencilInterface"
                 type="SimplifiedMagento\FirstModule\NotMagento\RedPencil"
                 />
-
+     <preference for="Magento\Catalog\Api\ProductRepositoryInterface"
+                type="SimplifiedMagento\FirstModule\Model\CustomImplementation"
+                />               
     
-
 </config>

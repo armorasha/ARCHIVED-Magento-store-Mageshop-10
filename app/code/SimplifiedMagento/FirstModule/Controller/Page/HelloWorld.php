@@ -1,25 +1,21 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: Owner
- * Date: 1/1/2020
- * Time: 8:09 AM
- */
-
 namespace SimplifiedMagento\FirstModule\Controller\Page;
 
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ResponseInterface;
 use SimplifiedMagento\FirstModule\NotMagento\PencilInterface;
+use Magento\Catalog\Api\ProductRepositoryInterface;
 
 class HelloWorld extends \Magento\Framework\App\Action\Action
 {
     protected $pencilInterface;
+    protected $productRepository;
 
-    public function __construct(Context $context, PencilInterface $pencilInterface)
+    public function __construct(Context $context, PencilInterface $pencilInterface, ProductRepositoryInterface $productRepository)
     {
         $this->pencilInterface = $pencilInterface;
+        $this->productRepository = $productRepository;
         parent::__construct($context);
     }
 
@@ -36,6 +32,7 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
     public function execute()
     {
         // echo "Main function" . "</br>";
-        echo $this->pencilInterface->getPencilType();
+        echo $this->pencilInterface->getPencilType() . "<br>";
+        echo get_class($this->productRepository);
     }
 }
