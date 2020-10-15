@@ -33,11 +33,26 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
+        // 1. for object argument type example
         echo $this->pencilInterface->getPencilType() . "<br>";
 
         // using object manager to create objects on the fly to test how book object gets default size and colour from di.xml
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $book = $objectManager->create('SimplifiedMagento\FirstModule\Model\Book');
         var_dump($book);
+        echo "<br>";
+
+        // 2. for string, number, array argument types example
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $student = $objectManager->create('SimplifiedMagento\FirstModule\Model\Student');
+        var_dump($student);
+        echo "<br>";
+
+
+        // 3. for virtual argument type example
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $pencil = $objectManager->create('SimplifiedMagento\FirstModule\Model\Pencil');
+        var_dump($pencil);
+        echo "<br>";
     }
 }
