@@ -9,19 +9,28 @@ use Magento\Setup\Module\Dependency\Report\FrameworkTest;
 use Magento\TestFramework\Event\Magento;
 use SimplifiedMagento\FirstModule\Api\PencilInterface;
 
-// this PencilFactory is what Magento will automatically create if we don’t write this PencilFactory.php class file
+// this PencilFactory is what Magento will automatically create if we don’t write this PencilFactory.php class file. ProductFactory too will be auto created.
 use SimplifiedMagento\FirstModule\Model\PencilFactory;
+use Magento\Catalog\Model\ProductFactory;
+
 
 use function PHPSTORM_META\type;
 
 class HelloWorld extends \Magento\Framework\App\Action\Action
 {
     protected $pencilInterface;
+    protected $pencilFactory;
+    protected $productFactory;
 
-    public function __construct(Context $context, PencilFactory $pencilFactory, PencilInterface $pencilInterface)
-    {
+    public function __construct(
+        Context $context,
+        ProductFactory $productFactory,
+        PencilFactory $pencilFactory,
+        PencilInterface $pencilInterface
+    ) {
         $this->pencilFactory = $pencilFactory;
         $this->pencilInterface = $pencilInterface;
+        $this->productFactory = $productFactory;
         parent::__construct($context);
     }
 
@@ -61,7 +70,22 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
 
 
         // Factory class. $pencil object now has done customisation with array data
-        $pencil = $this->pencilFactory->create(array("name" => "Alex"));
-        var_dump($pencil);
+        // $pencil = $this->pencilFactory->create(array("name" => "Alex"));
+        // var_dump($pencil);
+
+        //Before-Plugin exercise. Tested. Worked.
+        // $product = $this->productFactory->create()->load(1);
+        // $product->setName("iPhone 12 Mini");
+        // $productName = $product->getName();
+        // echo $productName;
+
+        //Around-plugin exercise:1. Tested. Worked.
+        // $product = $this->productFactory->create()->load(1);
+        // $product->setName("iPhone 12 Mini");
+        // $productName = $product->getName();
+
+        //Around-plugin exercise:2. Tested. Worked.
+        $product = $this->productFactory->create()->load(1);
+        $productName = $product->getIdBySku("24-MB06");
     }
 }
