@@ -8,6 +8,7 @@ use Magento\Framework\App\ResponseInterface;
 use Magento\Setup\Module\Dependency\Report\FrameworkTest;
 use Magento\TestFramework\Event\Magento;
 use SimplifiedMagento\FirstModule\Api\PencilInterface;
+use Magento\Framework\Event\ManagerInterface;
 
 // this PencilFactory is what Magento will automatically create if we don’t write this PencilFactory.php class file. ProductFactory too will be auto created.
 use SimplifiedMagento\FirstModule\Model\PencilFactory;
@@ -21,9 +22,11 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
     protected $pencilInterface;
     protected $pencilFactory;
     protected $productFactory;
+    protected $_eventManager;
 
     public function __construct(
         Context $context,
+        ManagerInterface $_eventManager,
         ProductFactory $productFactory,
         PencilFactory $pencilFactory,
         PencilInterface $pencilInterface
@@ -31,6 +34,7 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
         $this->pencilFactory = $pencilFactory;
         $this->pencilInterface = $pencilInterface;
         $this->productFactory = $productFactory;
+        $this->_eventManager = $_eventManager;
         parent::__construct($context);
     }
 
@@ -85,7 +89,11 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
         // $productName = $product->getName();
 
         //Around-plugin exercise:2. Tested. Worked.
-        $product = $this->productFactory->create()->load(1);
-        $productName = $product->getIdBySku("24-MB06");
+        // $product = $this->productFactory->create()->load(1);
+        // $productName = $product->getIdBySku("24-MB06");
+
+        $message = new \Magento\Framework\DataObject(array('greeting' => 'Good Afternoon'));
+        $this->_eventManager->dispatch('custom_event', ['greeting' => $message]);
+        echo $message->getGreeting();
     }
 }

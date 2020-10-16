@@ -39,31 +39,31 @@ class PluginSolution
     // }
 
     //c. around-plugin 1: Tested. Worked.
-    public function aroundGetName(
-        \Magento\Catalog\Model\Product $subject,
-        callable $proceed
-    ) {
+    // public function aroundGetName(
+    //     \Magento\Catalog\Model\Product $subject,
+    //     callable $proceed
+    // ) {
 
-        echo "before around-plugin proceed" . "</br>";
-        $name = $proceed();
-        echo $name . "</br>";
-        echo "after around-plugin proceed" . "</br>";
-        return $name;
-    }
+    //     echo "before around-plugin proceed" . "</br>";
+    //     $name = $proceed();
+    //     echo $name . "</br>";
+    //     echo "after around-plugin proceed" . "</br>";
+    //     return $name;
+    // }
 
     //d. around-plugin 2: Tested. Worked.
     // around-plugin for method with argument $sku - getIdbySku() in Vendor/Magento/module-catalog/Model/Product.php
-    public function aroundGetIdBySku(
-        \Magento\Catalog\Model\Product $subject,
-        callable $proceed,
-        $sku
-    ) {
-        echo "before proceed" . "</br>";
-        $id = $proceed($sku);
-        echo $id . "</br>";
-        echo "after proceed" . "</br>";
-        return $id;
-    }
+    // public function aroundGetIdBySku(
+    //     \Magento\Catalog\Model\Product $subject,
+    //     callable $proceed,
+    //     $sku
+    // ) {
+    //     echo "before proceed" . "</br>";
+    //     $id = $proceed($sku);
+    //     echo $id . "</br>";
+    //     echo "after proceed" . "</br>";
+    //     return $id;
+    // }
 
 
 
