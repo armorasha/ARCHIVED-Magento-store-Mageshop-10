@@ -9,6 +9,8 @@ use Magento\Setup\Module\Dependency\Report\FrameworkTest;
 use Magento\TestFramework\Event\Magento;
 use SimplifiedMagento\FirstModule\Api\PencilInterface;
 use Magento\Framework\Event\ManagerInterface;
+use Magento\Framework\App\Request\Http;
+use SimplifiedMagento\FirstModule\Model\HeavyService;
 
 // this PencilFactory is what Magento will automatically create if we don’t write this PencilFactory.php class file. ProductFactory too will be auto created.
 use SimplifiedMagento\FirstModule\Model\PencilFactory;
@@ -22,10 +24,16 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
     protected $pencilInterface;
     protected $pencilFactory;
     protected $productFactory;
+
     protected $_eventManager;
+
+    protected $http;
+    protected $heavyService;
 
     public function __construct(
         Context $context,
+        Http $http,
+        HeavyService $heavyService,
         ManagerInterface $_eventManager,
         ProductFactory $productFactory,
         PencilFactory $pencilFactory,
@@ -35,6 +43,8 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
         $this->pencilInterface = $pencilInterface;
         $this->productFactory = $productFactory;
         $this->_eventManager = $_eventManager;
+        $this->http = $http;
+        $this->heavyService = $heavyService;
         parent::__construct($context);
     }
 
@@ -92,8 +102,20 @@ class HelloWorld extends \Magento\Framework\App\Action\Action
         // $product = $this->productFactory->create()->load(1);
         // $productName = $product->getIdBySku("24-MB06");
 
-        $message = new \Magento\Framework\DataObject(array('greeting' => 'Good Afternoon'));
-        $this->_eventManager->dispatch('custom_event', ['greeting' => $message]);
-        echo $message->getGreeting();
+        //Custom event & observer exercise
+        // $message = new \Magento\Framework\DataObject(array('greeting' => 'Good Afternoon'));
+        // $this->_eventManager->dispatch('custom_event', ['greeting' => $message]);
+        // echo $message->getGreeting();
+
+
+        //Proxy exercise
+        // if the 'id' value is 0 as in ('id', 0), heavy service not used.
+        // if the 'id' value is 1, heavy service is used.
+        $id = $this->http->getParam('id', 1);
+        if ($id == 1) {
+            $this->heavyService->printHeavyServiceMessage();
+        } else {
+            echo "Heavy Service not used";
+        }
     }
 }

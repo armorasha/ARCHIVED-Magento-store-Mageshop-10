@@ -1,73 +1,81 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsii="http://symfony.com/schema/dic/services"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-<preference for="SimplifiedMagento\FirstModule\Api\PencilInterface"
-                type="SimplifiedMagento\FirstModule\Model\Pencil"
-                />
+    <preference for="SimplifiedMagento\FirstModule\Api\PencilInterface"
+                    type="SimplifiedMagento\FirstModule\Model\Pencil"
+                    />
 
-<!-- Defaults: Yellow and Normal size as default -->
-<preference for="SimplifiedMagento\FirstModule\Api\Color"
-                type="SimplifiedMagento\FirstModule\Model\Yellow"
-                />
-<preference for="SimplifiedMagento\FirstModule\Api\Size"
-                type="SimplifiedMagento\FirstModule\Model\Normal"
-                />
-<preference for="SimplifiedMagento\FirstModule\Api\Brightness"
-                type="SimplifiedMagento\FirstModule\Model\Medium"
-                />
-
-
-
-<!-- virtualType can automatically set brightness to High if Yellow Color is chosen -->
-<virtualType name="virtualType" type="SimplifiedMagento\FirstModule\Model\Yellow">
-    <arguments>
-        <argument name="brightness" xsi:type="object">SimplifiedMagento\FirstModule\Model\High</argument>
-    </arguments>
-</virtualType>
+    <!-- Defaults: Yellow and Normal size as default -->
+    <preference for="SimplifiedMagento\FirstModule\Api\Color"
+                    type="SimplifiedMagento\FirstModule\Model\Yellow"
+                    />
+    <preference for="SimplifiedMagento\FirstModule\Api\Size"
+                    type="SimplifiedMagento\FirstModule\Model\Normal"
+                    />
+    <preference for="SimplifiedMagento\FirstModule\Api\Brightness"
+                    type="SimplifiedMagento\FirstModule\Model\Medium"
+                    />
 
 
 
-
-<!-- Custom: To keep above defaults as defaults and temporarily change the  color and size, leave the above code and add the below code -->
-<type name="SimplifiedMagento\FirstModule\Model\Pencil">
-    <arguments>
-        <argument name="color" xsi:type="object">virtualType</argument>
-        <!-- virtualType is yellow from above, which will automatically set brightess argument  to High  -->
-    </arguments>
-    <arguments>
-        <argument name="size" xsi:type="object">SimplifiedMagento\FirstModule\Model\Big</argument>
-    </arguments>
-</type>
-
-<!-- Custom: To keep above defaults in preferences and temporarily change the  name(string), age(number) and scores(array) -->
-<type name="SimplifiedMagento\FirstModule\Model\Student">
-    <arguments>
-        <argument name="name" xsi:type="string">Bob</argument>
-    </arguments>
-    <arguments>
-        <argument name="age" xsi:type="number">35</argument>
-    </arguments>
-    <arguments>
-        <argument name="scores" xsi:type="array">
-            <item name="maths" xsi:type="number">100</item>
-            <item name="programming" xsi:type="number">99</item>
-        </argument>
-    </arguments>
-</type>
+    <!-- virtualType can automatically set brightness to High if Yellow Color is chosen -->
+    <virtualType name="virtualType" type="SimplifiedMagento\FirstModule\Model\Yellow">
+        <arguments>
+            <argument name="brightness" xsi:type="object">SimplifiedMagento\FirstModule\Model\High</argument>
+        </arguments>
+    </virtualType>
 
 
 
-<!-- <type name="SimplifiedMagento\FirstModule\Controller\Page\HelloWorld">
+
+    <!-- Custom: To keep above defaults as defaults and temporarily change the  color and size, leave the above code and add the below code -->
+    <type name="SimplifiedMagento\FirstModule\Model\Pencil">
+        <arguments>
+            <argument name="color" xsi:type="object">virtualType</argument>
+            <!-- virtualType is yellow from above, which will automatically set brightess argument  to High  -->
+        </arguments>
+        <arguments>
+            <argument name="size" xsi:type="object">SimplifiedMagento\FirstModule\Model\Big</argument>
+        </arguments>
+    </type>
+
+    <!-- Custom: To keep above defaults in preferences and temporarily change the  name(string), age(number) and scores(array) -->
+    <type name="SimplifiedMagento\FirstModule\Model\Student">
+        <arguments>
+            <argument name="name" xsi:type="string">Bob</argument>
+        </arguments>
+        <arguments>
+            <argument name="age" xsi:type="number">35</argument>
+        </arguments>
+        <arguments>
+            <argument name="scores" xsi:type="array">
+                <item name="maths" xsi:type="number">100</item>
+                <item name="programming" xsi:type="number">99</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+
+    <type name="SimplifiedMagento\FirstModule\Controller\Page\HelloWorld">
+        <!-- for Plugin exercise -->
         <plugin name="plugin_on_execute"
                 type="SimplifiedMagento\FirstModule\Plugin\PluginSolution"
-                sortOrder="10"/>
+                sortOrder="10" disabled="true"/>
         <plugin name="plugin2_on_execute"
                 type="SimplifiedMagento\FirstModule\Plugin\PluginSolution2"
-                sortOrder="20"/>
+                sortOrder="20" disabled="true"/>
         <plugin name="plugin3_on_execute"
                 type="SimplifiedMagento\FirstModule\Plugin\PluginSolution3"
-                sortOrder="30"/>
-    </type> -->
+                sortOrder="30" disabled="true"/>
+        
+        <!-- for Proxy exercise -->
+        <arguments>
+            <argument name="heavyService" xsi:type="object">
+            SimplifiedMagento\FirstModule\Model\HeavyService\Proxy
+            </argument>    
+        </arguments>
+    </type>
 
     <type name="Magento\Catalog\Model\Product">
         <plugin name="before_set_name"
