@@ -143,6 +143,7 @@ return [
         'Dotdigitalgroup_Email' => 1,
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistSampleData' => 1,
+        'SimplifiedMagento_Database' => 1,
         'SimplifiedMagento_FirstModule' => 1,
         'SimplifiedMagento_RequestFlow' => 1,
         'Temando_Shipping' => 1,
