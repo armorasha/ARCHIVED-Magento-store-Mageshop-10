@@ -60,7 +60,6 @@ class InstallSchema implements InstallSchemaInterface
             'Affiliate Member table'
 
         );
-
         // setComment() method above is to set comment to the entire table
 
         $setup->getConnection()->createTable($table);
