@@ -36,7 +36,44 @@ class Index extends Action
         // $affiliateMember->save();
 
         //to delete member with id 6 in db. worked.
-        $member = $affiliateMember->load(6);
-        $affiliateMember->delete();
+        // $member = $affiliateMember->load(6);
+        // $affiliateMember->delete();
+
+        // we used collection to query all of 'affiliate_member table' data. worked.
+        $collection = $affiliateMember->getCollection();
+        foreach ($collection as $item) {
+            print_r($item->getData());
+            echo '<br>';
+        }
+        echo '<br>';
+
+        // we used collection to query all of 'affiliate_member table' data with only names to be selected. worked.
+        // vendor/magento/framework/Model/ResourceModel/Db/Collection/AbstractCollection.php has addFieldToSelect() and other methods defined.
+        $collection = $affiliateMember->getCollection()->addFieldToSelect('name');
+        foreach ($collection as $item) {
+            print_r($item->getData());
+            echo '<br>';
+        }
+        echo '<br>';
+
+        // we used collection to query all of 'affiliate_member table' data with only names, status to be selected and filtered. worked.
+        // vendor/magento/framework/Model/ResourceModel/Db/Collection/AbstractCollection.php has addFieldToSelect() and other methods defined.
+        $collection = $affiliateMember->getCollection()->addFieldToSelect(['name', 'status', 'address'])->addFieldToFilter('name', array('eq' => 'Bob'));
+        foreach ($collection as $item) {
+            print_r($item->getData());
+            echo '<br>';
+        }
+        echo '<br>';
+
+
+        // we used collection to query all of 'affiliate_member table' data with only names, status to be selected and filtered. worked.
+        // vendor/magento/framework/Model/ResourceModel/Db/Collection/AbstractCollection.php has addFieldToSelect() and other methods defined.
+        // eq means == and neq means !=
+        $collection = $affiliateMember->getCollection()->addFieldToSelect(['name', 'status', 'address'])->addFieldToFilter('status', array('neq' => true));
+        foreach ($collection as $item) {
+            print_r($item->getData());
+            echo '<br>';
+        }
+        echo '<br>';
     }
 }
