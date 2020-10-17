@@ -20,9 +20,23 @@ class Index extends Action
 
     public function execute()
     {
-        //let us load member_affiliate with the id 1
         $affiliateMember = $this->affiliateMemberFactory->create();
-        $member = $affiliateMember->load(1);
-        var_dump($member->getData());
+
+        //let us load member_affiliate with the id 1. worked.
+        // $member = $affiliateMember->load(1);
+        // var_dump($member->getData());
+
+        //to change address. worked.
+        // $member->setAddress('new address');
+        // $member->save();
+        // var_dump($member->getData());
+
+        //to create new member in db. worked.
+        // $affiliateMember->addData(['name' => 'Rand', 'address' => 'different address', 'status' => true, 'phone_number' => '82940043']);
+        // $affiliateMember->save();
+
+        //to delete member with id 6 in db. worked.
+        $member = $affiliateMember->load(6);
+        $affiliateMember->delete();
     }
 }
